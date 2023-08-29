@@ -111,9 +111,9 @@ gcc -no-pie main.c -o main
 
 We'll use [pwntools](https://github.com/Gallopsled/pwntools) to create the exploit itself.
 
-## Broilerplate
+## Boilerplate
 
-Now this has been setup. Let's create some broilerplate code for reading and writing values, using pwntools:
+Now this has been setup. Let's create some boilerplate code for reading and writing values, using pwntools:
 
 
 
