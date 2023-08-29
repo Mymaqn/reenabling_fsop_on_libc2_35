@@ -402,7 +402,7 @@ However as far as I could see, `fmemopen` always comes before `_IO_vtable_check`
 
 The PoC can be found in the code folder of this repo and is just called c_poc.c.
 
-**Q**
+**Q:**
 
 Why?
 
