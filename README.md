@@ -1,5 +1,6 @@
 # Re-enabling FSOP on GLIBC 2.35 like a mad man.
 
+
 ## Introduction
 
 Most people who have done binary exploitation has at some point, run into the concept of FSOP.
@@ -31,6 +32,34 @@ IO_set_accept_foreign_vtables (void (*flag) (void))
 A-ha.. So you're telling me. That I might be able to disable the vtable check during runtime?
 
 The answer is yes. But requires a really strong primitive. Let's build a PoC together.
+
+### Post-publication note(s)
+After further research it came to my attention that you don't actually need to be able to leak the PTR_MANGLE secret, but in fact you can just overwrite it with 0x0, or any value you know.
+
+LIBC leak is still required, but now you don't actually need a leak within LIBC as well. Which makes the attack significantly easier to perform.
+
+However it should be noted that to even abuse this the attacker needs atleast one of the following two strong primitives:
+```
+3 arbitrary writes
+  1. Overwrite FP vtable
+  2. Overwrite PTR_MANGLE secret
+  3. Overwrite IO_accept_foreign_vtables
+1 libc leak
+The ability to place a fake vtable at a known address (Does not have to be arbitrary write)
+```
+
+Or
+
+```
+2 arbitrary writes
+  1. Overwrite FP vtable
+  2. Overwrite IO_accept_foreign_vtables
+1 libc leak
+1 arbitrary read inside of libc
+The ability to place a fake vtable at a known address (Does not have to be arbitrary write)
+```
+
+An example exploit has been added to the code folder, called `exploit_one_leak_only.py` which uses overwriting the PTR_MANGLE secret instead of leaking it.
 
 ## The test program
 
