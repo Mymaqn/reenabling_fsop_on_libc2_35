@@ -59,7 +59,7 @@ Or
 The ability to place a fake vtable at a known address (Does not have to be arbitrary write)
 ```
 
-It should be noted that this only works if your flushing mechanism is NOT running exit. If your flushing mechanism is to run exit, you will need to fix all possible mangled pointers used by `__run_exit_handlers` as these use the PTR_MANGLE secret as well.
+It should be noted that only using arbitrary writes only works if your flushing mechanism is NOT running exit. If your flushing mechanism is to run exit, you will need to fix all possible mangled pointers used by `__run_exit_handlers` as these use the PTR_MANGLE secret as well.
 
 An example exploit has been added to the code folder, called `exploit_one_leak_only.py` which uses overwriting the PTR_MANGLE secret instead of leaking it.
 
